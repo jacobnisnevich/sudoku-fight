@@ -5,7 +5,7 @@
 					<% if puzzle_cell == " " %>
 						<td class="cell-col-<%= col %> sudoku-cell" onkeypress="return (this.innerText.length <= 0)" contenteditable="true"></td>
 					<% else %>
-						<td class="cell-col-<%= col %> sudoku-cell"><b><%= puzzle_cell %></b></td>
+						<td class="cell-col-<%= col %> sudoku-cell sudoku-intial-cell"><%= puzzle_cell %></td>
 					<% end %>
 				<% end %>
 			</tr>

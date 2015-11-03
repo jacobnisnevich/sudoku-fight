@@ -1,10 +1,19 @@
 #sudoku-puzzle {
 	border-collapse: collapse;
+	font-size: 18px;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .sudoku-cell {
-	padding: 20px;
+	width: 64px;
+	height: 64px;
+	text-align: center;
 	border: 1px solid black;
+}
+
+.sudoku-intial-cell {
+	font-size: 24px;
+	font-weight: bold;
 }
 
 .cell-col-0, .cell-col-3, .cell-col-6 {

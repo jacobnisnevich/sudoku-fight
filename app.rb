@@ -7,7 +7,7 @@ set :views, Proc.new { File.join(root, "public") }
 
 get '/' do
   sudokuRetriever = SudokuRetriever.new
-  puzzle = sudokuRetriever.getRandomPuzzle(9)
+  puzzle = sudokuRetriever.getRandomPuzzle(5)
 
   erb :index, :locals => {:puzzle => puzzle}
 end
