@@ -1,0 +1,13 @@
+	<table id="sudoku-puzzle">
+		<% puzzle.each_with_index do |puzzle_row, row| %>
+			<tr class="cell-row-<%= row %>">
+				<% puzzle_row.each_with_index do |puzzle_cell, col| %>
+					<% if puzzle_cell == " " %>
+						<td class="cell-col-<%= col %> sudoku-cell" onkeypress="return (this.innerText.length <= 0)" contenteditable="true"></td>
+					<% else %>
+						<td class="cell-col-<%= col %> sudoku-cell"><b><%= puzzle_cell %></b></td>
+					<% end %>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
