@@ -5,8 +5,8 @@
 }
 
 .sudoku-cell {
-	width: 64px;
-	height: 64px;
+	width: 48px;
+	height: 48px;
 	text-align: center;
 	border: 1px solid black;
 }
