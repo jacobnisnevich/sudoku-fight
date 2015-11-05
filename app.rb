@@ -17,14 +17,17 @@ get '/' do
   else
     request.websocket do |ws|
       ws.onopen do
-        ws.send("Hello World!")
         settings.sockets << ws
       end
       ws.onmessage do |msg|
-        EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        msg_parsed = JSON.parse(msg)
+        case msg_parsed["type"]
+        when "score"
+          sudokuScore = SudokuScore.new(msg_parsed["data"])
+          EM.next_tick { settings.sockets.each{|s| s.send(sudokuScore.getPercentComplete.to_json) } }
+        end
       end
       ws.onclose do
-        warn("websocket closed")
         settings.sockets.delete(ws)
       end
     end
