@@ -11,7 +11,7 @@ set :sockets, []
 get '/' do
   if !request.websocket?
     sudokuRetriever = SudokuRetriever.new
-    puzzle = sudokuRetriever.getRandomPuzzle(4)
+    puzzle = sudokuRetriever.getRandomPuzzle(2)
 
     erb :index, :locals => {:puzzle => puzzle}
   else
