@@ -3,14 +3,13 @@
 var initialState = {
     user: {
         isLoggedIn: false,
-        username: '',
-        passwordHash: ''
+        username: ''
     },
-    game: {
-        isInGame: false,
-        lobbyId: 0,
-    }
     lobby: {
+        lobbyId: 0,
+        opponents: []
+    }
+    game: {
         isGameStarted: false,
         boardState: [[0, 0, 0, 0, 0, 0, 0, 0, 0]
                      [0, 0, 0, 0, 0, 0, 0, 0, 0]

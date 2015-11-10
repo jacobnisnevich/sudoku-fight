@@ -3,14 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Sudoku Fight</title>
-
-	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script src="js/scripts.js"></script>
-
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<%= erb :sudoku, :locals => {:puzzle => puzzle} %>
+	<div id="root"></div>
+	<script src="bundle.js"></script>
 </body>
 </html>

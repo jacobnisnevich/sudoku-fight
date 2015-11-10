@@ -10,10 +10,10 @@ set :sockets, []
 
 get '/' do
   if !request.websocket?
-    sudokuRetriever = SudokuRetriever.new
-    puzzle = sudokuRetriever.getRandomPuzzle(2)
+    # sudokuRetriever = SudokuRetriever.new
+    # puzzle = sudokuRetriever.getRandomPuzzle(2)
 
-    erb :index, :locals => {:puzzle => puzzle}
+    erb :index
   else
     request.websocket do |ws|
       ws.onopen do
