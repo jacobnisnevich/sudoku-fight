@@ -28,7 +28,7 @@ class SudokuScore
   private
 
   def rowsValid
-
+    true
   end
 
   def colsValid
