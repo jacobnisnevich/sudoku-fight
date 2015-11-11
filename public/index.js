@@ -10,7 +10,7 @@ let store = createStore(rootReducer)
 let rootElement = document.getElementById('root')
 render(
   <Provider store={store}>
-    <div>Hi</div>
+    <App />
   </Provider>,
   rootElement
 )

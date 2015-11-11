@@ -17,10 +17,13 @@
     ]
   },
   "dependencies": {
+    "jquery": "^2.1.4",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^3.1.0",
-    "redux": "^3.0.0"
+    "redux": "^3.0.0",
+    "redux-logger": "^2.0.4",
+    "redux-thunk": "^0.1.0"
   },
   "devDependencies": {
     "browserify": "~10.2.4",
