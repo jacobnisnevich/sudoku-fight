@@ -3,9 +3,11 @@ import NavButton from './NavButton'
 
 class Navbar extends Component {
   render() {
-    let profileButton = <NavButton buttonText="Login" clickEvent={this.props.goToLogin} />
+    let profileButton = ""
+    let loginButton = <NavButton buttonText="Login" clickEvent={this.props.goToLogin} />
     if (this.props.isLoggedIn) {
-      profileButton = <NavButton buttonText="Profile" clickEvent={this.props.goToProfile} />
+      profileButton = <NavButton buttonText="Profile" clickEvent={this.props.goToProfile} />      
+      loginButton = <NavButton buttonText="Logout" clickEvent={this.props.beLoggedOut} />
     }
 
     return (
@@ -17,6 +19,7 @@ class Navbar extends Component {
           <div className="navbar-right">
             <NavButton buttonText="Games" clickEvent={this.props.goToGames} />
             {profileButton}
+            {loginButton}
           </div>
         </div>
       </nav>

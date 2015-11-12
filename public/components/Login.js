@@ -65,6 +65,7 @@ class Login extends Component {
         errorMessage: ''
       })
       this.render()
+      this.props.beLoggedIn(this.state.username)
     } else {
       this.setState({
         username: this.state.username,
@@ -80,12 +81,14 @@ class Login extends Component {
       <div className='login-form'>
         <form>
           <div>
-            <label>Username</label>
-            <input type='text' value={this.state.username} onChange={this.onUsernameChange.bind(this)}/>
+            <label className='form-justify'>Username&nbsp;
+              <input type='text' value={this.state.username} onChange={this.onUsernameChange.bind(this)}/>
+            </label>
           </div>
           <div>
-            <label>Password</label>
-            <input type='password' value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
+            <label className='form-justify'>Password&nbsp;
+              <input type='password' value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
+            </label>
           </div>
           <div className='login-form-buttons'>
             <button onClick={this.loginUser.bind(this)}>Login</button>

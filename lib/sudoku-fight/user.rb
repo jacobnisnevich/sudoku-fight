@@ -41,7 +41,7 @@ class User
     validate_login_query = "SELECT password_hash FROM sudoku_users WHERE user='#{username}'"
     query_output = @client.query(validate_login_query)
 
-    if query_output.first["password_hash"] == password_hash
+    if query_output.count > 0 && query_output.first["password_hash"] == password_hash
       return {
         :success => true,
         :message => ""

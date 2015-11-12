@@ -1,10 +1,9 @@
 import * as types from '../constants/ActionTypes'
 
-export function logIn(username, password) {
+export function logIn(username) {
     return {
         type: types.LOG_IN,
-        username: username,
-        password: password
+        username: username
     }
 }
 

@@ -9,26 +9,60 @@ import * as SudokuActions from '../actions/sudoku'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {view: views.LOGIN}
+    this.state = {
+      view: this.props.user.username == '' ? views.LOGIN : views.LOBBIES
+    }
+  }
+
+  beLoggedIn(username) {
+    this.props.actions.logIn(username)
+    this.setState({
+      view: views.LOBBIES
+    })
+    localStorage.setItem('sudokuFightUser', JSON.stringify({
+      'username': username,
+      'loginTime': Date.now()
+    }))
+    this.render()
+  }
+
+  beLoggedOut() {
+    this.props.actions.logOut()
+    this.setState({
+      view: views.LOGIN
+    })
+    localStorage.setItem('sudokuFightUser', JSON.stringify({
+      'username': '',
+      'loginTime': ''
+    }))
+    this.render()
   }
 
   goToGames() {
-    this.setState({view: views.LOBBIES})
+    this.setState({
+      view: views.LOBBIES
+    })
     this.render()
   }
 
   goToCreateGame() {
-    this.setState({view: views.CREATE_LOBBY})
+    this.setState({
+      view: views.CREATE_LOBBY
+    })
     this.render()
   }
 
   goToLogin() {
-    this.setState({view: views.LOGIN})
+    this.setState({
+      view: views.LOGIN
+    })
     this.render()
   }
 
   goToProfile() {
-    this.setState({view: views.PROFILE})
+    this.setState({
+      view: views.PROFILE
+    })
     this.render()
   }
 
@@ -39,10 +73,12 @@ class App extends Component {
         <Navbar isLoggedIn={this.props.user.isLoggedIn}
                 goToGames={this.goToGames.bind(this)}
                 goToLogin={this.goToLogin.bind(this)}
-                goToProfile={this.goToProfile.bind(this)} />
+                goToProfile={this.goToProfile.bind(this)}
+                beLoggedOut={this.beLoggedOut.bind(this)}/>
         <MainView username={this.props.user.username}
                   view={this.state.view}
-                  goToCreateGame={this.goToCreateGame.bind(this)}/>
+                  goToCreateGame={this.goToCreateGame.bind(this)}
+                  beLoggedIn={this.beLoggedIn.bind(this)}/>
       </div>
     )
   }

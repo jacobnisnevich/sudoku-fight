@@ -16,7 +16,7 @@ class MainView extends Component {
         break
       case views.LOGIN:
         mainViewHeader = 'Login'
-        mainView = <Login />
+        mainView = <Login beLoggedIn={this.props.beLoggedIn}/>
         break
       case views.PROFILE:
         mainViewHeader = 'Profile'

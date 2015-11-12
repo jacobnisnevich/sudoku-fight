@@ -122,11 +122,10 @@ var _constantsActionTypes = require('../constants/ActionTypes');
 
 var types = _interopRequireWildcard(_constantsActionTypes);
 
-function logIn(username, password) {
+function logIn(username) {
     return {
         type: types.LOG_IN,
-        username: username,
-        password: password
+        username: username
     };
 }
 
@@ -438,6 +437,7 @@ var Login = (function (_Component) {
           errorMessage: ''
         });
         this.render();
+        this.props.beLoggedIn(this.state.username);
       } else {
         this.setState({
           username: this.state.username,
@@ -450,7 +450,7 @@ var Login = (function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2['default'].createElement('div', { className: 'login-form' }, _react2['default'].createElement('form', null, _react2['default'].createElement('div', null, _react2['default'].createElement('label', null, 'Username'), _react2['default'].createElement('input', { type: 'text', value: this.state.username, onChange: this.onUsernameChange.bind(this) })), _react2['default'].createElement('div', null, _react2['default'].createElement('label', null, 'Password'), _react2['default'].createElement('input', { type: 'password', value: this.state.password, onChange: this.onPasswordChange.bind(this) })), _react2['default'].createElement('div', { className: 'login-form-buttons' }, _react2['default'].createElement('button', { onClick: this.loginUser.bind(this) }, 'Login'), _react2['default'].createElement('button', { onClick: this.registerUser.bind(this) }, 'Register')), _react2['default'].createElement('div', { className: 'login-error' }, this.state.errorMessage)));
+      return _react2['default'].createElement('div', { className: 'login-form' }, _react2['default'].createElement('form', null, _react2['default'].createElement('div', null, _react2['default'].createElement('label', { className: 'form-justify' }, 'Username ', _react2['default'].createElement('input', { type: 'text', value: this.state.username, onChange: this.onUsernameChange.bind(this) }))), _react2['default'].createElement('div', null, _react2['default'].createElement('label', { className: 'form-justify' }, 'Password ', _react2['default'].createElement('input', { type: 'password', value: this.state.password, onChange: this.onPasswordChange.bind(this) }))), _react2['default'].createElement('div', { className: 'login-form-buttons' }, _react2['default'].createElement('button', { onClick: this.loginUser.bind(this) }, 'Login'), _react2['default'].createElement('button', { onClick: this.registerUser.bind(this) }, 'Register')), _react2['default'].createElement('div', { className: 'login-error' }, this.state.errorMessage)));
     }
   }]);
 
@@ -612,12 +612,14 @@ var Navbar = (function (_Component) {
   _createClass(Navbar, [{
     key: 'render',
     value: function render() {
-      var profileButton = _react2['default'].createElement(_NavButton2['default'], { buttonText: 'Login', clickEvent: this.props.goToLogin });
+      var profileButton = "";
+      var loginButton = _react2['default'].createElement(_NavButton2['default'], { buttonText: 'Login', clickEvent: this.props.goToLogin });
       if (this.props.isLoggedIn) {
         profileButton = _react2['default'].createElement(_NavButton2['default'], { buttonText: 'Profile', clickEvent: this.props.goToProfile });
+        loginButton = _react2['default'].createElement(_NavButton2['default'], { buttonText: 'Logout', clickEvent: this.props.beLoggedOut });
       }
 
-      return _react2['default'].createElement('nav', null, _react2['default'].createElement('div', { className: 'navbar-inner' }, _react2['default'].createElement('div', { className: 'navbar-left' }, _react2['default'].createElement('div', { className: 'navbar-title' }, 'Sudoku Fight')), _react2['default'].createElement('div', { className: 'navbar-right' }, _react2['default'].createElement(_NavButton2['default'], { buttonText: 'Games', clickEvent: this.props.goToGames }), profileButton)));
+      return _react2['default'].createElement('nav', null, _react2['default'].createElement('div', { className: 'navbar-inner' }, _react2['default'].createElement('div', { className: 'navbar-left' }, _react2['default'].createElement('div', { className: 'navbar-title' }, 'Sudoku Fight')), _react2['default'].createElement('div', { className: 'navbar-right' }, _react2['default'].createElement(_NavButton2['default'], { buttonText: 'Games', clickEvent: this.props.goToGames }), profileButton, loginButton)));
     }
   }]);
 
@@ -770,31 +772,67 @@ var App = (function (_Component) {
     _classCallCheck(this, App);
 
     _get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this, props);
-    this.state = { view: views.LOGIN };
+    this.state = {
+      view: this.props.user.username == '' ? views.LOGIN : views.LOBBIES
+    };
   }
 
   _createClass(App, [{
+    key: 'beLoggedIn',
+    value: function beLoggedIn(username) {
+      this.props.actions.logIn(username);
+      this.setState({
+        view: views.LOBBIES
+      });
+      localStorage.setItem('sudokuFightUser', JSON.stringify({
+        'username': username,
+        'loginTime': Date.now()
+      }));
+      this.render();
+    }
+  }, {
+    key: 'beLoggedOut',
+    value: function beLoggedOut() {
+      this.props.actions.logOut();
+      this.setState({
+        view: views.LOGIN
+      });
+      localStorage.setItem('sudokuFightUser', JSON.stringify({
+        'username': '',
+        'loginTime': ''
+      }));
+      this.render();
+    }
+  }, {
     key: 'goToGames',
     value: function goToGames() {
-      this.setState({ view: views.LOBBIES });
+      this.setState({
+        view: views.LOBBIES
+      });
       this.render();
     }
   }, {
     key: 'goToCreateGame',
     value: function goToCreateGame() {
-      this.setState({ view: views.CREATE_LOBBY });
+      this.setState({
+        view: views.CREATE_LOBBY
+      });
       this.render();
     }
   }, {
     key: 'goToLogin',
     value: function goToLogin() {
-      this.setState({ view: views.LOGIN });
+      this.setState({
+        view: views.LOGIN
+      });
       this.render();
     }
   }, {
     key: 'goToProfile',
     value: function goToProfile() {
-      this.setState({ view: views.PROFILE });
+      this.setState({
+        view: views.PROFILE
+      });
       this.render();
     }
   }, {
@@ -807,9 +845,11 @@ var App = (function (_Component) {
       return _react2['default'].createElement('div', null, _react2['default'].createElement(_componentsNavbar2['default'], { isLoggedIn: this.props.user.isLoggedIn,
         goToGames: this.goToGames.bind(this),
         goToLogin: this.goToLogin.bind(this),
-        goToProfile: this.goToProfile.bind(this) }), _react2['default'].createElement(_MainView2['default'], { username: this.props.user.username,
+        goToProfile: this.goToProfile.bind(this),
+        beLoggedOut: this.beLoggedOut.bind(this) }), _react2['default'].createElement(_MainView2['default'], { username: this.props.user.username,
         view: this.state.view,
-        goToCreateGame: this.goToCreateGame.bind(this) }));
+        goToCreateGame: this.goToCreateGame.bind(this),
+        beLoggedIn: this.beLoggedIn.bind(this) }));
     }
   }]);
 
@@ -938,7 +978,7 @@ var MainView = (function (_Component) {
           break;
         case views.LOGIN:
           mainViewHeader = 'Login';
-          mainView = _react2['default'].createElement(_componentsLogin2['default'], null);
+          mainView = _react2['default'].createElement(_componentsLogin2['default'], { beLoggedIn: this.props.beLoggedIn });
           break;
         case views.PROFILE:
           mainViewHeader = 'Profile';
@@ -30298,9 +30338,25 @@ exports['default'] = user;
 
 var _constantsActionTypes = require('../constants/ActionTypes');
 
+var storedUser = "";
+var expiredStash = true;
+if (localStorage.getItem('sudokuFightUser')) {
+  var parsedStoredUser = JSON.parse(localStorage.getItem('sudokuFightUser'));
+  storedUser = parsedStoredUser.username;
+  var storedLoginTime = new Date(parsedStoredUser.loginTime);
+  var currentTime = new Date(Date.now());
+
+  var timeDiff = Math.abs(currentTime.getTime() - storedLoginTime.getTime());
+  var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+  if (diffDays <= 30) {
+    expiredStash = false;
+  }
+}
+
 var initialState = {
-  isLoggedIn: false,
-  username: ''
+  isLoggedIn: expiredStash ? false : true,
+  username: expiredStash ? '' : storedUser
 };
 
 function user(state, action) {

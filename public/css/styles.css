@@ -72,6 +72,10 @@ button {
 	box-shadow: 1px 1px 2px #BBB;
 }
 
+button:hover {
+	pointer: cursor;
+}
+
 input {
 	border: 0;
 	padding: 10px;
@@ -79,8 +83,12 @@ input {
 	box-shadow: 1px 1px 2px #CCC;
 }
 
+input:focus, button:focus {
+	outline-color: #222;
+}
+
 .login-form form {
-	margin: 5% 30% 5% 30%;
+	margin: 5% 35% 5% 35%;
 	padding: 10px;
 	border-radius: 3px;
 	background-color: #EEE;
@@ -95,13 +103,10 @@ input {
 	padding: 10px;
 }
 
-.login-form label {
-	width: 40%;
-}
-
-.login-form input {
-	width: 60%;
-	float: right;
+.form-justify {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .login-error {
@@ -140,4 +145,12 @@ input {
 
 .cell-row-8 {
 	border-bottom: 3px solid black;
+}
+
+.clearfix:after {
+   content: " ";
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
 }
