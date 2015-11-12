@@ -62,6 +62,26 @@ nav {
 	font-size: 28px;
 }
 
+
+.games-list {
+	width: 100%;
+	background-color: #BBB;
+	border-collapse: collapse;
+}
+
+.games-list thead th {
+	border-bottom: 5px solid white;
+}
+
+.games-list td {
+	text-align: center;
+}
+
+.games-list tr {
+	height: 60px;
+	padding: 10px;
+}
+
 button {
 	border: 0;
 	margin: 10px;
@@ -73,17 +93,17 @@ button {
 }
 
 button:hover {
-	pointer: cursor;
+	cursor: pointer;
 }
 
-input {
+input[type="text"] {
 	border: 0;
 	padding: 10px;
 	border-radius: 3px;
 	box-shadow: 1px 1px 2px #CCC;
 }
 
-input:focus, button:focus {
+input[type="text"]:focus, button:focus {
 	outline-color: #222;
 }
 
@@ -95,11 +115,19 @@ input:focus, button:focus {
 	box-shadow: 1px 1px 2px #CCC;
 }
 
-.login-form-buttons {
+.create-lobby-form form {
+	margin: 5% 25% 5% 25%;
+	padding: 10px;
+	border-radius: 3px;
+	background-color: #EEE;
+	box-shadow: 1px 1px 2px #CCC;
+}
+
+.form-buttons {
 	text-align: center;
 }
 
-.login-form div {
+.login-form div, .create-lobby-form div {
 	padding: 10px;
 }
 

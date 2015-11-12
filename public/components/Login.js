@@ -90,7 +90,7 @@ class Login extends Component {
               <input type='password' value={this.state.password} onChange={this.onPasswordChange.bind(this)}/>
             </label>
           </div>
-          <div className='login-form-buttons'>
+          <div className='form-buttons'>
             <button onClick={this.loginUser.bind(this)}>Login</button>
             <button onClick={this.registerUser.bind(this)}>Register</button>
           </div>

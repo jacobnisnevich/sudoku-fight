@@ -78,7 +78,8 @@ class App extends Component {
         <MainView username={this.props.user.username}
                   view={this.state.view}
                   goToCreateGame={this.goToCreateGame.bind(this)}
-                  beLoggedIn={this.beLoggedIn.bind(this)}/>
+                  beLoggedIn={this.beLoggedIn.bind(this)}
+                  goToGames={this.goToGames.bind(this)}/>
       </div>
     )
   }

@@ -35,9 +35,24 @@ get '/' do
   end
 end
 
-get '/getSudokuPuzzle' do
-  sudoku_retriever = SudokuRetriever.new
-  sudoku_retriever.getRandomPuzzle(params[:difficulty]).to_json
+get '/getOpenGames' do
+  game = Game.new
+  game.get_open_games.to_json
+end
+
+get '/getStartedGames' do
+  game = Game.new
+  game.get_started_games.to_json
+end
+
+get '/getFinishedGames' do
+  game = Game.new
+  game.get_finished_games.to_json
+end
+
+post '/createLobby' do
+  game = Game.new
+  game.create_lobby(params[:user], params[:name], params[:difficulty], params[:capacity]).to_json
 end
 
 post '/registerUser' do
@@ -48,4 +63,9 @@ end
 post '/loginUser' do
   user = User.new
   user.validate_login(params[:username], params[:password]).to_json
+end
+
+get '/getSudokuPuzzle' do
+  sudoku_retriever = SudokuRetriever.new
+  sudoku_retriever.getRandomPuzzle(params[:difficulty]).to_json
 end

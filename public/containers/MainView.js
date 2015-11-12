@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
-import CreateLobby from '../components/CreateLobby'
 import Login from '../components/Login'
+import Lobbies from '../components/Lobbies'
+import CreateLobby from '../components/CreateLobby'
 import * as views from '../constants/Views'
 
 class MainView extends Component {
@@ -10,9 +11,7 @@ class MainView extends Component {
     switch (this.props.view) {
       case views.LOBBIES:
         mainViewHeader = 'Lobbies'
-        mainView = <div>
-                     <button onClick={this.props.goToCreateGame.bind(this)}>Create Lobby</button>
-                   </div>
+        mainView = <Lobbies goToCreateGame={this.props.goToCreateGame}/>
         break
       case views.LOGIN:
         mainViewHeader = 'Login'
@@ -23,7 +22,7 @@ class MainView extends Component {
         break
       case views.CREATE_LOBBY:
         mainViewHeader = 'Create Lobby'
-        mainView = <CreateLobby username={this.props.username}/>
+        mainView = <CreateLobby username={this.props.username} goToGames={this.props.goToGames}/>
         break
     } 
 
