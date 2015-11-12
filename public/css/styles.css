@@ -54,6 +54,7 @@ nav {
 }
 
 .main-view {
+	position: relative;
 	margin: 0% 20% 0% 20%;
 }
 
@@ -62,24 +63,55 @@ nav {
 	font-size: 28px;
 }
 
+.create-lobby-button {
+	position: absolute;
+	top: 15px;
+	right: 0;
+}
 
 .games-list {
 	width: 100%;
-	background-color: #BBB;
-	border-collapse: collapse;
+	margin: 20px 0px;
 }
 
-.games-list thead th {
-	border-bottom: 5px solid white;
+.games-list-item-head {
+	display: flex;
+	justify-content: center;
 }
 
-.games-list td {
+.games-list-item {
+	display: flex;
+	justify-content: center;
+}
+
+.games-list-cell {
+	background-color: #CCC;
+	display: block;
 	text-align: center;
+	align-items: center;
+	padding: 15px;
+	width: 12%;
+	box-shadow: 1px 1px 2px #ccc;
 }
 
-.games-list tr {
-	height: 60px;
-	padding: 10px;
+.games-list-cell:first-child {
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+.games-list-cell:last-child {
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+
+.games-list-item-head .games-list-cell {
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+.games-list-item .games-list-cell {
+	margin-bottom: 4px;
 }
 
 button {
@@ -96,14 +128,14 @@ button:hover {
 	cursor: pointer;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
 	border: 0;
 	padding: 10px;
 	border-radius: 3px;
 	box-shadow: 1px 1px 2px #CCC;
 }
 
-input[type="text"]:focus, button:focus {
+input[type="text"]:focus, input[type="password"]:focus, button:focus {
 	outline-color: #222;
 }
 

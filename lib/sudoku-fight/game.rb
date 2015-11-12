@@ -46,18 +46,18 @@ class Game
   def get_open_games
     select_query = "SELECT * FROM sudoku_games WHERE status=#{@game_status[:OPEN]}"
     query_output = @client.query(select_query)
-    p query_output.to_a
+    query_output.to_a
   end
 
   def get_started_games
     select_query = "SELECT * FROM sudoku_games WHERE status=#{@game_status[:STARTED]}"
     query_output = @client.query(select_query)
-    p query_output.to_a
+    query_output.to_a
   end
 
   def get_finished_games
     select_query = "SELECT * FROM sudoku_games WHERE status=#{@game_status[:FINISHED]}"
     query_output = @client.query(select_query)
-    p query_output.to_a
+    query_output.to_a
   end
 end

@@ -422,23 +422,35 @@ var Lobbies = (function (_Component) {
       self = this;
 
       $.get('/getOpenGames', function (openGames) {
-        $.get('/getStartedGames', function (startedGames) {
-          $.get('/getFinishedGames', function (finishedGames) {
-            self.setState({
-              openGames: JSON.parse(openGames),
-              startedGames: JSON.parse(startedGames),
-              finishedGames: JSON.parse(finishedGames)
-            });
-          });
+        self.setState({
+          openGames: JSON.parse(openGames),
+          startedGames: self.state.startedGames,
+          finishedGames: self.state.finishedGames
+        });
+      });
+
+      $.get('/getStartedGames', function (startedGames) {
+        self.setState({
+          openGames: self.state.openGames,
+          startedGames: JSON.parse(startedGames),
+          finishedGames: self.state.finishedGames
+        });
+      });
+
+      $.get('/getFinishedGames', function (finishedGames) {
+        self.setState({
+          openGames: self.state.openGames,
+          startedGames: self.state.startedGames,
+          finishedGames: JSON.parse(finishedGames)
         });
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      return _react2['default'].createElement('div', null, _react2['default'].createElement('div', null, _react2['default'].createElement('button', { onClick: this.props.goToCreateGame.bind(this) }, 'Create Lobby')), _react2['default'].createElement('div', null, _react2['default'].createElement('div', null, 'Open Games'), _react2['default'].createElement('table', { className: 'games-list' }, _react2['default'].createElement('thead', null, _react2['default'].createElement('tr', null, _react2['default'].createElement('th', null, 'Name'), _react2['default'].createElement('th', null, 'Difficulty'), _react2['default'].createElement('th', null, 'Capacity'), _react2['default'].createElement('th', null, 'Player 1'), _react2['default'].createElement('th', null, 'Player 2'), _react2['default'].createElement('th', null, 'Player 3'), _react2['default'].createElement('th', null, 'Player 4'))), _react2['default'].createElement('tbody', null, this.state.openGames.map(function (game, i) {
-        return _react2['default'].createElement('tr', null, _react2['default'].createElement('td', null, game.name), _react2['default'].createElement('td', null, game.difficulty), _react2['default'].createElement('td', null, game.capacity), _react2['default'].createElement('td', null, game.p_1_name), _react2['default'].createElement('td', null, game.p_2_name), _react2['default'].createElement('td', null, game.p_3_name), _react2['default'].createElement('td', null, game.p_4_name));
-      })))), _react2['default'].createElement('div', null, _react2['default'].createElement('div', null, 'Started Games'), this.state.startedGames.map(function (game, i) {
+      return _react2['default'].createElement('div', null, _react2['default'].createElement('div', { className: 'create-lobby-button' }, _react2['default'].createElement('button', { onClick: this.props.goToCreateGame.bind(this) }, 'Create Lobby')), _react2['default'].createElement('div', null, _react2['default'].createElement('div', null, 'Open Games'), _react2['default'].createElement('div', { className: 'games-list' }, _react2['default'].createElement('div', { className: 'games-list-item-head' }, _react2['default'].createElement('div', { className: 'games-list-cell' }, 'Name'), _react2['default'].createElement('div', { className: 'games-list-cell' }, 'Difficulty'), _react2['default'].createElement('div', { className: 'games-list-cell' }, 'Capacity'), _react2['default'].createElement('div', { className: 'games-list-cell' }, 'Player 1'), _react2['default'].createElement('div', { className: 'games-list-cell' }, 'Player 2'), _react2['default'].createElement('div', { className: 'games-list-cell' }, 'Player 3'), _react2['default'].createElement('div', { className: 'games-list-cell' }, 'Player 4')), this.state.openGames.map(function (game, i) {
+        return _react2['default'].createElement('div', { className: 'games-list-item' }, _react2['default'].createElement('div', { className: 'games-list-cell' }, game.name), _react2['default'].createElement('div', { className: 'games-list-cell' }, game.difficulty), _react2['default'].createElement('div', { className: 'games-list-cell' }, game.capacity), _react2['default'].createElement('div', { className: 'games-list-cell' }, game.p_1_name), _react2['default'].createElement('div', { className: 'games-list-cell' }, game.p_2_name), _react2['default'].createElement('div', { className: 'games-list-cell' }, game.p_3_name), _react2['default'].createElement('div', { className: 'games-list-cell' }, game.p_4_name));
+      }))), _react2['default'].createElement('div', null, _react2['default'].createElement('div', null, 'Started Games'), this.state.startedGames.map(function (game, i) {
         return _react2['default'].createElement('div', { className: 'games-list-item' }, game.name);
       })), _react2['default'].createElement('div', null, _react2['default'].createElement('div', null, 'Finished Games'), this.state.finishedGames.map(function (game, i) {
         return _react2['default'].createElement('div', { className: 'games-list-item' }, game.name);
