@@ -9,7 +9,7 @@ import * as SudokuActions from '../actions/sudoku'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {view: views.LOBBIES}
+    this.state = {view: views.LOGIN}
   }
 
   goToGames() {
@@ -40,7 +40,8 @@ class App extends Component {
                 goToGames={this.goToGames.bind(this)}
                 goToLogin={this.goToLogin.bind(this)}
                 goToProfile={this.goToProfile.bind(this)} />
-        <MainView view={this.state.view}
+        <MainView username={this.props.user.username}
+                  view={this.state.view}
                   goToCreateGame={this.goToCreateGame.bind(this)}/>
       </div>
     )

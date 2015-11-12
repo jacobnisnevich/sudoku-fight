@@ -8,7 +8,7 @@ class CreateLobby extends Component {
     this.validateForm()
 
     $.post('/createLobby', {
-      'user': 
+      'user': this.props.username,
       'name': this.props.name,
       'difficulty': this.props.difficulty,
       'capacity': this.props.capacity
@@ -31,7 +31,7 @@ class CreateLobby extends Component {
             <label>Capacity</label>
             <input type='text' value={this.props.capacity} />
           </div>
-          <button type="submit">Submit</button>
+          <button type='submit'>Submit</button>
         </form>
       </div>
     )

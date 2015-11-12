@@ -1,8 +1,4 @@
 class SudokuRetriever
-  def initialize
-
-  end
-
   def getRandomPuzzle(difficulty)
     # difficulty - 1 - super easy
     #              9 - impossible

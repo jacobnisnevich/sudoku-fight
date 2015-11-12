@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import CreateLobby from '../components/CreateLobby'
+import Login from '../components/Login'
 import * as views from '../constants/Views'
 
 class MainView extends Component {
@@ -15,13 +16,15 @@ class MainView extends Component {
         break
       case views.LOGIN:
         mainViewHeader = 'Login'
+        mainView = <Login />
         break
       case views.PROFILE:
         mainViewHeader = 'Profile'
         break
       case views.CREATE_LOBBY:
         mainViewHeader = 'Create Lobby'
-        mainView = <CreateLobby />
+        mainView = <CreateLobby username={this.props.username}/>
+        break
     } 
 
     return (
