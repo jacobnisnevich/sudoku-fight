@@ -43,6 +43,22 @@ class Game
 
   end
 
+  def get_lobby_data(lobby_id)
+    select_query = "SELECT * FROM sudoku_games WHERE id=#{lobby_id}"
+    query_output = @client.query(select_query)
+    query_output.first
+  end
+
+  def get_all_games
+    all_games = {}
+
+    all_games["openGames"] = get_open_games
+    all_games["startedGames"] = get_started_games
+    all_games["finishedGames"] = get_finished_games
+
+    all_games
+  end
+
   def get_open_games
     select_query = "SELECT * FROM sudoku_games WHERE status=#{@game_status[:OPEN]}"
     query_output = @client.query(select_query)

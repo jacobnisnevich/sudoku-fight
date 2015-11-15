@@ -85,7 +85,6 @@ nav {
 }
 
 .games-list-cell {
-	background-color: #CCC;
 	display: block;
 	text-align: center;
 	align-items: center;
@@ -104,13 +103,14 @@ nav {
 	border-bottom-right-radius: 3px;
 }
 
-
 .games-list-item-head .games-list-cell {
+	background-color: #CCC;
 	font-weight: bold;
 	margin-bottom: 8px;
 }
 
 .games-list-item .games-list-cell {
+	background-color: #EEE;
 	margin-bottom: 4px;
 }
 

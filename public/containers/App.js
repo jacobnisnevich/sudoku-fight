@@ -10,7 +10,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      view: this.props.user.username == '' ? views.LOGIN : views.LOBBIES
+      view: this.props.user.username == '' ? views.LOGIN : views.LOBBIES,
+      lobbyId: 0
     }
   }
 
@@ -40,28 +41,48 @@ class App extends Component {
 
   goToGames() {
     this.setState({
-      view: views.LOBBIES
+      view: views.LOBBIES,
+      lobbyId: this.state.lobbyId
+    })
+    this.render()
+  }
+
+  goToLobby(id) {
+    this.setState({
+      view: views.LOBBY,
+      lobbyId: id
+    })
+    this.render()
+  }
+
+  goToGame() {
+    this.setState({
+      view: views.GAME,
+      lobbyId: this.state.lobbyId
     })
     this.render()
   }
 
   goToCreateGame() {
     this.setState({
-      view: views.CREATE_LOBBY
+      view: views.CREATE_LOBBY,
+      lobbyId: this.state.lobbyId
     })
     this.render()
   }
 
   goToLogin() {
     this.setState({
-      view: views.LOGIN
+      view: views.LOGIN,
+      lobbyId: this.state.lobbyId
     })
     this.render()
   }
 
   goToProfile() {
     this.setState({
-      view: views.PROFILE
+      view: views.PROFILE,
+      lobbyId: this.state.lobbyId
     })
     this.render()
   }
@@ -78,6 +99,8 @@ class App extends Component {
         <MainView username={this.props.user.username}
                   view={this.state.view}
                   goToCreateGame={this.goToCreateGame.bind(this)}
+                  goToLobby={this.goToLobby.bind(this)}
+                  lobbyId={this.state.lobbyId}
                   beLoggedIn={this.beLoggedIn.bind(this)}
                   goToGames={this.goToGames.bind(this)}/>
       </div>

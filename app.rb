@@ -35,19 +35,14 @@ get '/' do
   end
 end
 
-get '/getOpenGames' do
+post '/getLobbyData' do
   game = Game.new
-  game.get_open_games.to_json
+  game.get_lobby_data(params[:lobbyId]).to_json
 end
 
-get '/getStartedGames' do
+get '/getAllGames' do
   game = Game.new
-  game.get_started_games.to_json
-end
-
-get '/getFinishedGames' do
-  game = Game.new
-  game.get_finished_games.to_json
+  game.get_all_games.to_json
 end
 
 post '/createLobby' do

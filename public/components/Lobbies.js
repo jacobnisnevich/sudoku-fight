@@ -13,30 +13,16 @@ class Lobbies extends Component {
   }
 
   componentDidMount() {
+    let tempState = this.state
     self = this
 
-    $.get('/getOpenGames', function(openGames) {
-      self.setState({
-        openGames: JSON.parse(openGames),
-        startedGames: self.state.startedGames,
-        finishedGames: self.state.finishedGames
-      })
-    })
-
-    $.get('/getStartedGames', function(startedGames) {
-      self.setState({
-        openGames: self.state.openGames,
-        startedGames: JSON.parse(startedGames),
-        finishedGames: self.state.finishedGames
-      })
-    })
-
-    $.get('/getFinishedGames', function(finishedGames) {
-      self.setState({
-        openGames: self.state.openGames,
-        startedGames: self.state.startedGames,
-        finishedGames: JSON.parse(finishedGames)
-      })
+    $.get('/getAllGames', function(data) {
+      tempState = {
+        openGames: JSON.parse(data).openGames,
+        startedGames: JSON.parse(data).startedGames,
+        finishedGames: JSON.parse(data).finishedGames
+      }
+      self.setState(tempState)
     })
   }
 
@@ -48,23 +34,15 @@ class Lobbies extends Component {
         </div>
         <div>
           <div>Open Games</div>
-          <GamesTable gamesArray={this.state.openGames}/>
+          <GamesTable gamesArray={this.state.openGames} goToLobby={this.props.goToLobby}/>
         </div>
         <div>
           <div>Started Games</div>
-          {this.state.startedGames.map(function(game, i) {
-            return (
-              <div className='games-list-item'>{game.name}</div>
-            )
-          })}
+          <GamesTable gamesArray={this.state.startedGames} goToLobby={this.props.goToLobby}/>
         </div>
         <div>
           <div>Finished Games</div>
-          {this.state.finishedGames.map(function(game, i) {
-            return (
-              <div className='games-list-item'>{game.name}</div>
-            )
-          })}
+          <GamesTable gamesArray={this.state.finishedGames} goToLobby={this.props.goToLobby}/>
         </div>
       </div>
     )

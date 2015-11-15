@@ -2,6 +2,8 @@ import React, { PropTypes, Component } from 'react'
 
 class GamesTable extends Component {
   render() {
+    self = this
+
     return (
       <div className='games-list'>
         <div className='games-list-item-head'>
@@ -15,7 +17,7 @@ class GamesTable extends Component {
         </div>
         {this.props.gamesArray.map(function(game, i) {
           return (
-            <div className='games-list-item'>
+            <div className='games-list-item' onClick={self.props.goToLobby.bind(null, game.id)} key={game.id}>
               <div className='games-list-cell'>{game.name}</div>
               <div className='games-list-cell'>{game.difficulty}</div>
               <div className='games-list-cell'>{game.capacity}</div>
