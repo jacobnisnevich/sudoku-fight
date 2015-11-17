@@ -19,6 +19,18 @@ get '/' do
       ws.onmessage do |msg|
         msg_parsed = JSON.parse(msg)
         case msg_parsed['type']
+        when 'chat'
+          EM.next_tick do
+            settings.sockets.each do |s|
+              message_to_send = {
+                'type' => 'chat'
+                'lobbyId' => msg_parsed['lobbyId'],
+                'message' => msg_parsed['message'],
+                'username' => msg_parsed['username']
+              }
+              s.send(message_to_send.to_json.to_s)
+            end
+          end
         when 'score'
           sudoku_score = SudokuScore.new(msg_parsed['data'])
           EM.next_tick do

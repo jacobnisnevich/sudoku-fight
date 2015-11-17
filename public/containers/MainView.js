@@ -16,7 +16,7 @@ class MainView extends Component {
         break
       case views.LOBBY:
         mainViewHeader = 'Lobby'
-        mainView = <Lobby lobbyId={this.props.lobbyId} goToGame={this.props.goToGame}/>
+        mainView = <Lobby lobbyId={this.props.lobbyId} goToGame={this.props.goToGame} username={this.props.username}/>
         break
       case views.LOGIN:
         mainViewHeader = 'Login'

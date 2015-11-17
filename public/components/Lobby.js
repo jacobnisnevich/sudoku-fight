@@ -44,7 +44,7 @@ class Lobby extends Component {
     return (
       <div className='lobby-view'>
         <PlayersList players={this.state.players}/>
-        <Chat lobbyId={this.props.lobbyId}/>
+        <Chat lobbyId={this.props.lobbyId} username={this.props.username}/>
       </div>
     )
   }
