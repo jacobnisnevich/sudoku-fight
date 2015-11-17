@@ -128,14 +128,14 @@ button:hover {
 	cursor: pointer;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="textarea"] {
 	border: 0;
 	padding: 10px;
 	border-radius: 3px;
 	box-shadow: 1px 1px 2px #CCC;
 }
 
-input[type="text"]:focus, input[type="password"]:focus, button:focus {
+input[type="text"]:focus, input[type="password"]:focus, input[type="textarea"]:focus, button:focus {
 	outline-color: #222;
 }
 
@@ -171,6 +171,69 @@ input[type="text"]:focus, input[type="password"]:focus, button:focus {
 
 .login-error {
 	color: red;
+}
+
+.lobby-view {
+	padding: 15px;
+	background-color: #CCC;
+	border-radius: 3px;
+	box-shadow: 1px 1px 2px #BBB;
+}
+
+.lobby-players-list {
+	width: 70%;
+	float: left;
+	height: 600px;
+}
+
+.lobby-player-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 98%;
+	height: 80px;
+	padding: 10px;
+	border-radius: 3px;
+	box-shadow: 1px 1px 2px #AAA;
+	background-color: #DDD;
+	box-sizing: border-box;
+}
+
+.lobby-player-name {
+	margin-right: auto;
+}
+
+.lobby-player-elo {
+	margin-left: auto;
+}
+
+.chat {
+	width: 30%;
+	float: right;
+	height: 600px;
+}
+
+.chat-message-display {
+	width: 100%;
+	height: 500px;
+	background-color: #FFF;
+	margin-bottom: 5px;
+	border-radius: 3px;
+	box-shadow: 1px 1px 2px #AAA;
+}
+
+.chat-message-input-area input {
+	width: 100%;
+	height: 50px;
+	box-sizing: border-box;
+	margin-bottom: 5px;
+}
+
+.chat-message-submit button {
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
 }
 
 #sudoku-puzzle {

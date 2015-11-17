@@ -23,7 +23,7 @@ get '/' do
           EM.next_tick do
             settings.sockets.each do |s|
               message_to_send = {
-                'type' => 'chat'
+                'type' => 'chat',
                 'lobbyId' => msg_parsed['lobbyId'],
                 'message' => msg_parsed['message'],
                 'username' => msg_parsed['username']
