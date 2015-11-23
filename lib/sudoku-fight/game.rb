@@ -16,7 +16,7 @@ class Game
   end
 
   def create_lobby(username, lobby_name, difficulty, capacity)
-    get_max_id_query = "SELECT MAX(id) AS id FROM sudoku_games"
+    get_max_id_query = "SELECT MAX(id) AS id FROM sudoku_lobbies"
     query_output = @client.query(get_max_id_query)
 
     next_id = query_output.first['id'].to_i + 1
@@ -26,8 +26,8 @@ class Game
 
     player_elo = query_output.first['elo'].to_i
 
-    create_lobby_query = "INSERT INTO sudoku_games (id, status, name, difficulty, capacity, p_1_name, p_1_elo) VALUES \ 
-                          (#{next_id}, #{@game_status[:OPEN]}, '#{lobby_name}', #{difficulty}, #{capacity}, '#{username}', #{player_elo})"
+    create_lobby_query = "INSERT INTO sudoku_lobbies (id, status, name, difficulty, capacity, p_1_name, p_1_elo, p_1_status) VALUES \ 
+                          (#{next_id}, #{@game_status[:OPEN]}, '#{lobby_name}', #{difficulty}, #{capacity}, '#{username}', #{player_elo}, 'not_ready')"
     @client.query(create_lobby_query)
 
     {
@@ -44,19 +44,19 @@ class Game
   end
 
   def store_message(lobby_id, message) 
-    select_query = "SELECT chat_log FROM sudoku_games WHERE id=#{lobby_id}"
+    select_query = "SELECT chat_log FROM sudoku_lobbies WHERE id=#{lobby_id}"
     query_output = @client.query(select_query)
     chat_log = query_output.first['chat_log'] ? JSON.parse(query_output.first['chat_log']) : []
 
     chat_log = chat_log.push(message)
     chat_log_string = @client.escape(chat_log.to_json.to_s)
-    store_chat_query = "UPDATE sudoku_games SET chat_log='#{chat_log_string}' WHERE id=#{lobby_id}"
+    store_chat_query = "UPDATE sudoku_lobbies SET chat_log='#{chat_log_string}' WHERE id=#{lobby_id}"
     p store_chat_query
     @client.query(store_chat_query)
   end
 
   def get_lobby_data(lobby_id)
-    select_query = "SELECT * FROM sudoku_games WHERE id=#{lobby_id}"
+    select_query = "SELECT * FROM sudoku_lobbies WHERE id=#{lobby_id}"
     query_output = @client.query(select_query)
     query_output.first
   end
@@ -72,19 +72,19 @@ class Game
   end
 
   def get_open_games
-    select_query = "SELECT * FROM sudoku_games WHERE status=#{@game_status[:OPEN]}"
+    select_query = "SELECT * FROM sudoku_lobbies WHERE status=#{@game_status[:OPEN]}"
     query_output = @client.query(select_query)
     query_output.to_a
   end
 
   def get_started_games
-    select_query = "SELECT * FROM sudoku_games WHERE status=#{@game_status[:STARTED]}"
+    select_query = "SELECT * FROM sudoku_lobbies WHERE status=#{@game_status[:STARTED]}"
     query_output = @client.query(select_query)
     query_output.to_a
   end
 
   def get_finished_games
-    select_query = "SELECT * FROM sudoku_games WHERE status=#{@game_status[:FINISHED]}"
+    select_query = "SELECT * FROM sudoku_lobbies WHERE status=#{@game_status[:FINISHED]}"
     query_output = @client.query(select_query)
     query_output.to_a
   end

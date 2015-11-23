@@ -19,7 +19,7 @@ class Chat extends Component {
       lobbyId: this.props.lobbyId
     }, function(data) {
       self.setState({
-        chatMessages: JSON.parse(data).chat_log ? JSON.parse(data).chat_log : [],
+        chatMessages: JSON.parse(data).chat_log ? JSON.parse(JSON.parse(data).chat_log) : [],
         messageAreaText: "",
         ws: self.state.ws
       })
@@ -100,7 +100,10 @@ class Chat extends Component {
         <div className='chat-message-display'>
           {this.state.chatMessages.map(function(chatMessage, i) {
             return (
-              <div key={i} className='chat-message'>{chatMessage.username}: {chatMessage.message}</div>
+              <div key={i} className='chat-message'>
+                <span className='chat-message-sender'>{chatMessage.username}: </span>
+                <span className='chat-message-text'>{chatMessage.message}</span>
+              </div>
             )
           })}
         </div>

@@ -28,7 +28,8 @@ class Lobby extends Component {
       if (data[`p_${i}_name`]) {
         players.push({
           name: data[`p_${i}_name`],
-          elo: data[`p_${i}_elo`]
+          elo: data[`p_${i}_elo`],
+          status: data[`p_${i}_status`] == 'ready' ? 'READY' : 'NOT READY'
         })
       } else {
         break

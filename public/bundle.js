@@ -280,7 +280,7 @@ var Chat = (function (_Component) {
         lobbyId: this.props.lobbyId
       }, function (data) {
         self.setState({
-          chatMessages: JSON.parse(data).chat_log ? JSON.parse(data).chat_log : [],
+          chatMessages: JSON.parse(data).chat_log ? JSON.parse(JSON.parse(data).chat_log) : [],
           messageAreaText: "",
           ws: self.state.ws
         });
@@ -367,7 +367,7 @@ var Chat = (function (_Component) {
     key: 'render',
     value: function render() {
       return _react2['default'].createElement('div', { className: 'chat' }, _react2['default'].createElement(_reactWebsocket2['default'], { url: 'ws://' + window.location.host + window.location.pathname, onMessage: this.handleMessage.bind(this) }), _react2['default'].createElement('div', { className: 'chat-message-display' }, this.state.chatMessages.map(function (chatMessage, i) {
-        return _react2['default'].createElement('div', { key: i, className: 'chat-message' }, chatMessage.username, ': ', chatMessage.message);
+        return _react2['default'].createElement('div', { key: i, className: 'chat-message' }, _react2['default'].createElement('span', { className: 'chat-message-sender' }, chatMessage.username, ': '), _react2['default'].createElement('span', { className: 'chat-message-text' }, chatMessage.message));
       })), _react2['default'].createElement('div', { className: 'chat-message-input-area' }, _react2['default'].createElement('input', { type: 'textarea', value: this.state.messageAreaText, onChange: this.onMessageChange.bind(this), onKeyPress: this.onKeyPress.bind(this) })), _react2['default'].createElement('div', { className: 'chat-message-submit' }, _react2['default'].createElement('button', { onClick: this.sendMessage.bind(this) }, 'Send')));
     }
   }]);
@@ -842,7 +842,8 @@ var Lobby = (function (_Component) {
         if (data['p_' + i + '_name']) {
           players.push({
             name: data['p_' + i + '_name'],
-            elo: data['p_' + i + '_elo']
+            elo: data['p_' + i + '_elo'],
+            status: data['p_' + i + '_status'] == 'ready' ? 'READY' : 'NOT READY'
           });
         } else {
           break;
@@ -1276,7 +1277,7 @@ var PlayersList = (function (_Component) {
     key: 'render',
     value: function render() {
       return _react2['default'].createElement('div', { className: 'lobby-players-list' }, this.props.players.map(function (player, i) {
-        return _react2['default'].createElement('div', { key: player.name, className: 'lobby-player-item clearfix' }, _react2['default'].createElement('div', { className: 'lobby-player-name' }, player.name), _react2['default'].createElement('div', { className: 'lobby-player-elo' }, player.elo));
+        return _react2['default'].createElement('div', { key: player.name }, _react2['default'].createElement('div', { className: 'lobby-player-number' }, i + 1), _react2['default'].createElement('div', { className: 'lobby-player-item clearfix' }, _react2['default'].createElement('div', { className: 'lobby-player-name' }, player.name), _react2['default'].createElement('div', { className: 'lobby-player-elo' }, player.elo), _react2['default'].createElement('div', { className: 'lobby-player-status' }, player.status)));
       }));
     }
   }]);

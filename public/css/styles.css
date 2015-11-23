@@ -181,17 +181,37 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="textarea"]:f
 }
 
 .lobby-players-list {
+	position: relative;
 	width: 70%;
 	float: left;
 	height: 600px;
 }
 
+.lobby-player-number {
+	position: absolute;
+	left: 0px;
+    display: flex;
+
+    align-items: center;
+
+	height: 80px;
+	padding: 10px;
+	border-radius: 3px;
+	box-shadow: 1px 1px 2px #AAA;
+	background-color: #666;
+	color: #EEE;
+	box-sizing: border-box;
+}
+
 .lobby-player-item {
+	position: absolute;
+	right: 10px;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
-	width: 98%;
+	width: 94%;
 	height: 80px;
 	padding: 10px;
 	border-radius: 3px;
@@ -205,6 +225,10 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="textarea"]:f
 }
 
 .lobby-player-elo {
+	margin: auto;
+}
+
+.lobby-player-status {
 	margin-left: auto;
 }
 
@@ -221,6 +245,16 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="textarea"]:f
 	margin-bottom: 5px;
 	border-radius: 3px;
 	box-shadow: 1px 1px 2px #AAA;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.chat-message-sender {
+	font-weight: 400;
+}
+
+.chat-message-text {
+	font-weight: 100;
 }
 
 .chat-message-input-area input {
