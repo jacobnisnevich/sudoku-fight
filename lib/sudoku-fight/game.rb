@@ -43,6 +43,18 @@ class Game
 
   end
 
+  def store_message(lobby_id, message) 
+    select_query = "SELECT chat_log FROM sudoku_games WHERE id=#{lobby_id}"
+    query_output = @client.query(select_query)
+    chat_log = query_output.first['chat_log'] ? JSON.parse(query_output.first['chat_log']) : []
+
+    chat_log = chat_log.push(message)
+    chat_log_string = @client.escape(chat_log.to_json.to_s)
+    store_chat_query = "UPDATE sudoku_games SET chat_log='#{chat_log_string}' WHERE id=#{lobby_id}"
+    p store_chat_query
+    @client.query(store_chat_query)
+  end
+
   def get_lobby_data(lobby_id)
     select_query = "SELECT * FROM sudoku_games WHERE id=#{lobby_id}"
     query_output = @client.query(select_query)

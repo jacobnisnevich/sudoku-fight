@@ -8,6 +8,8 @@ set :views, proc { File.join(root, 'public') }
 set :server, 'thin'
 set :sockets, []
 
+MYSQL_WAIT_TIMEOUT_MAX = 2000
+
 get '/' do
   if !request.websocket?
     erb :index
@@ -21,13 +23,17 @@ get '/' do
         case msg_parsed['type']
         when 'chat'
           EM.next_tick do
+            message_to_send = {
+              'type' => 'chat',
+              'lobbyId' => msg_parsed['lobbyId'],
+              'message' => msg_parsed['message'],
+              'username' => msg_parsed['username']
+            }
+
+            game = Game.new
+            game.store_message(msg_parsed['lobbyId'], message_to_send)
+
             settings.sockets.each do |s|
-              message_to_send = {
-                'type' => 'chat',
-                'lobbyId' => msg_parsed['lobbyId'],
-                'message' => msg_parsed['message'],
-                'username' => msg_parsed['username']
-              }
               s.send(message_to_send.to_json.to_s)
             end
           end
