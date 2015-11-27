@@ -182,7 +182,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="textarea"]:f
 
 .lobby-players-list {
 	position: relative;
-	width: 70%;
+	width: 68%;
 	float: left;
 	height: 600px;
 }
@@ -205,13 +205,13 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="textarea"]:f
 
 .lobby-player-item {
 	position: absolute;
-	right: 10px;
+	right: 0px;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
-	width: 94%;
+	width: 93%;
 	height: 80px;
 	padding: 10px;
 	border-radius: 3px;
@@ -230,6 +230,25 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="textarea"]:f
 
 .lobby-player-status {
 	margin-left: auto;
+}
+
+.lobby-player-join {
+	position: absolute;
+	width: 49%;
+	bottom: 0;
+	left: 0;
+}
+
+.lobby-player-change-status {
+	position: absolute;
+	width: 49%;
+	bottom: 0;
+	right: 0;
+}
+
+.lobby-player-join button, .lobby-player-change-status button {
+	width: 100%;
+	margin: 0;
 }
 
 .chat {

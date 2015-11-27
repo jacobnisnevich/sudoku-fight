@@ -68,6 +68,14 @@ post '/createLobby' do
   game.create_lobby(params[:user], params[:name], params[:difficulty], params[:capacity]).to_json
 end
 
+post '/joinLobby' do 
+  game = Game.new
+end
+
+post '/toggleStatus' do
+
+end
+
 post '/registerUser' do
   user = User.new
   user.create_account(params[:username], params[:password]).to_json

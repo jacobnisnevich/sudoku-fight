@@ -51,7 +51,6 @@ class Game
     chat_log = chat_log.push(message)
     chat_log_string = @client.escape(chat_log.to_json.to_s)
     store_chat_query = "UPDATE sudoku_lobbies SET chat_log='#{chat_log_string}' WHERE id=#{lobby_id}"
-    p store_chat_query
     @client.query(store_chat_query)
   end
 
@@ -87,5 +86,46 @@ class Game
     select_query = "SELECT * FROM sudoku_lobbies WHERE status=#{@game_status[:FINISHED]}"
     query_output = @client.query(select_query)
     query_output.to_a
+  end
+
+  def join_game 
+    select_query = "SELECT * FROM sudoku_lobbies WHERE id=#{lobby_id}"
+    query_output = @client.query(select_query)
+    lobby = query_output.first
+
+    1.upto(4) do |i|
+      if lobby["p_#{i}_name"].nil?
+        select_query = "SELECT * FROM sudoku_users WHERE user='#{username}'"
+        query_output = @client.query(select_query)
+        player = query_output.first
+
+        update_lobby_query = "UPDATE sudoku_lobbies SET p_#{i}_name='#{username}', 
+                                                        p_#{i}_elo=#{player['elo']}, 
+                                                        p_#{i}_status='not_ready' WHERE id=#{lobby_id}"
+        @client.query(update_lobby_query)
+        return "User #{username} joined lobby #{lobby_id}"
+      end
+    end
+
+    "Failed to insert user"
+  end
+
+  def toggle_status
+    select_query = "SELECT * FROM sudoku_lobbies WHERE id=#{lobby_id}"
+    query_output = @client.query(select_query)
+    lobby = query_output.first
+
+    1.upto(4) do |i|
+      if lobby["p_#{i}_name"] == username
+        current_status = lobby["p_#{i}_status"]
+        next_status = (current_status == "not_ready") ? "ready" : "not_ready"
+
+        update_status_query = "UPDATE sudoku_lobbies SET p_#{i}_status='#{next_status}' WHERE id=#{lobby_id}"
+        @client.query(update_lobby_query)
+        return "Toggled status of #{username} in lobby #{lobby_id}"
+      end
+    end
+
+    "Failed to toggle status"
   end
 end
