@@ -41,3 +41,6 @@ DEPENDENCIES
   nokogiri
   sinatra
   sinatra-websocket
+
+BUNDLED WITH
+   1.10.6

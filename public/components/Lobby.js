@@ -44,7 +44,7 @@ class Lobby extends Component {
   joinLobby() {
     // Check if player already in lobby
     for (let i = 0; i < this.state.players.length; i++) {
-      if (this.props.username == this.state.players[i].name) {
+      if (this.props.username.toLowerCase() == this.state.players[i].name.toLowerCase()) {
         return
       }
     }
@@ -65,7 +65,7 @@ class Lobby extends Component {
       username: this.props.username
     }, function(data) {
       for (let i = 0; i < self.state.players.length; i++) {
-        if (self.props.username == self.state.players[i].name) {
+        if (self.props.username.toLowerCase() == self.state.players[i].name.toLowerCase()) {
           updateStatus(i, switchStatus(self.state.players[i].status))
         }
       }
@@ -95,7 +95,7 @@ class Lobby extends Component {
   render() {
     return (
       <div className='lobby-view clearfix'>
-        <PlayersList players={this.state.players} joinLobby={this.joinLobby} toggleStatus={this.toggleStatus}/>
+        <PlayersList players={this.state.players} joinLobby={this.joinLobby.bind(this)} toggleStatus={this.toggleStatus.bind(this)}/>
         <Chat lobbyId={this.props.lobbyId} username={this.props.username}/>
       </div>
     )

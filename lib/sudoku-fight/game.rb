@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Game
   def initialize
     @client = Mysql2::Client.new(
@@ -33,10 +35,6 @@ class Game
     {
       "success" => true
     }
-  end
-
-  def join_lobby(player_id, lobby_id)
-
   end
 
   def start_game(lobby_id)
@@ -88,7 +86,7 @@ class Game
     query_output.to_a
   end
 
-  def join_game 
+  def join_game(player_id, lobby_id)
     select_query = "SELECT * FROM sudoku_lobbies WHERE id=#{lobby_id}"
     query_output = @client.query(select_query)
     lobby = query_output.first
@@ -110,18 +108,18 @@ class Game
     "Failed to insert user"
   end
 
-  def toggle_status
+  def toggle_status(username, lobby_id)
     select_query = "SELECT * FROM sudoku_lobbies WHERE id=#{lobby_id}"
     query_output = @client.query(select_query)
     lobby = query_output.first
 
     1.upto(4) do |i|
-      if lobby["p_#{i}_name"] == username
+      if lobby["p_#{i}_name"].downcase == username.downcase
         current_status = lobby["p_#{i}_status"]
         next_status = (current_status == "not_ready") ? "ready" : "not_ready"
 
         update_status_query = "UPDATE sudoku_lobbies SET p_#{i}_status='#{next_status}' WHERE id=#{lobby_id}"
-        @client.query(update_lobby_query)
+        @client.query(update_status_query)
         return "Toggled status of #{username} in lobby #{lobby_id}"
       end
     end
