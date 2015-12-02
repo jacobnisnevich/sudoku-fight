@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Game
   def initialize
     @client = Mysql2::Client.new(
@@ -86,7 +84,7 @@ class Game
     query_output.to_a
   end
 
-  def join_game(player_id, lobby_id)
+  def join_game(username, lobby_id)
     select_query = "SELECT * FROM sudoku_lobbies WHERE id=#{lobby_id}"
     query_output = @client.query(select_query)
     lobby = query_output.first
@@ -124,6 +122,41 @@ class Game
       end
     end
 
+    if all_ready(lobby)
+      start_game(lobby_id)
+    end
+
     "Failed to toggle status"
+  end
+
+  private
+
+  def all_ready(lobby)
+    num_players = players_in_lobby(lobby)
+    all_ready = true
+
+    if num_players > 1
+      1.upto(num_players) do i
+        if lobby["p_#{i}_status"] == "not_ready"
+          all_ready = false
+        end
+      end
+
+      return all_ready
+    end
+
+    false
+  end
+
+  def players_in_lobby(lobby)
+    player_count = 0
+
+    1.upto(4) do |i|
+      if !lobby["p_#{i}_name"].nil?
+        player_count += 1
+      end
+    end
+
+    player_count
   end
 end

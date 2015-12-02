@@ -7,7 +7,7 @@ class PlayersList extends Component {
         <div>
           {this.props.players.map(function(player, i) {
             return (
-              <div key={player.name}>
+              <div className='lobby-player clearfix' key={player.name}>
                 <div className='lobby-player-number'>{i + 1}</div>
                 <div className='lobby-player-item clearfix'>
                   <div className='lobby-player-name'>{player.name}</div>

@@ -70,6 +70,7 @@ end
 
 post '/joinLobby' do 
   game = Game.new
+  game.join_game(params[:username], params[:lobbyId])
 end
 
 post '/toggleStatus' do

@@ -66,7 +66,7 @@ class Lobby extends Component {
     }, function(data) {
       for (let i = 0; i < self.state.players.length; i++) {
         if (self.props.username.toLowerCase() == self.state.players[i].name.toLowerCase()) {
-          updateStatus(i, switchStatus(self.state.players[i].status))
+          self.updateStatus(i, self.switchStatus(self.state.players[i].status))
         }
       }
     })
@@ -78,7 +78,7 @@ class Lobby extends Component {
     }
 
     for (let i = 0; i < this.state.players.length; i++) {
-      players.push({
+      newState.players.push({
         name: this.state.players[i].name,
         elo: this.state.players[i].elo,
         status: (i == index) ? status : this.state.players[i].status
@@ -89,7 +89,7 @@ class Lobby extends Component {
   }
 
   switchStatus(status) {
-    return status == 'ready' ? 'not_ready' : ready
+    return status == 'READY' ? 'NOT READY' : 'READY'
   }
 
   render() {

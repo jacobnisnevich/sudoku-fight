@@ -187,6 +187,10 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="textarea"]:f
 	height: 600px;
 }
 
+.lobby-player {
+	height: 100px;
+}
+
 .lobby-player-number {
 	position: absolute;
 	left: 0px;
