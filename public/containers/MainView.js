@@ -10,6 +10,10 @@ class MainView extends Component {
     let mainView = <div></div>
     let mainViewHeader = 'Lobbies'
     switch (this.props.view) {
+      case views.PRACTICE:
+        mainViewHeader = 'Practice'
+        mainView = <Practice />
+        break
       case views.LOBBIES:
         mainViewHeader = 'Lobbies'
         mainView = <Lobbies goToCreateGame={this.props.goToCreateGame} goToLobby={this.props.goToLobby}/>

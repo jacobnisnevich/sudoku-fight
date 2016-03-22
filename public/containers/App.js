@@ -39,6 +39,14 @@ class App extends Component {
     this.render()
   }
 
+  goToPractice() {
+    this.setState{(
+      view: views.PRACTICE,
+      lobbyId: this.state.lobbyId
+    )}
+    this.render()
+  }
+
   goToGames() {
     this.setState({
       view: views.LOBBIES,
@@ -92,6 +100,7 @@ class App extends Component {
     return (
       <div>
         <Navbar isLoggedIn={this.props.user.isLoggedIn}
+                goToPractice={this.goToPractice.bind(this)}
                 goToGames={this.goToGames.bind(this)}
                 goToLogin={this.goToLogin.bind(this)}
                 goToProfile={this.goToProfile.bind(this)}

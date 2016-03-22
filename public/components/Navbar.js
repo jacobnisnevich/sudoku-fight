@@ -17,6 +17,7 @@ class Navbar extends Component {
             <div className="navbar-title">Sudoku Fight</div>
           </div>
           <div className="navbar-right">
+            <NavButton buttonText="Practice" clickEvent={this.props.goToPractice} />
             <NavButton buttonText="Games" clickEvent={this.props.goToGames} />
             {profileButton}
             {loginButton}
