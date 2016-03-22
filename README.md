@@ -1,2 +1,2 @@
 # Sudoku Fight
-Test
+Website for competitive, multiplayer speed sudoku
